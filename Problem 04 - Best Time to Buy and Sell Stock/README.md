@@ -62,6 +62,6 @@ This single-pass algorithm efficiently finds the optimal buy and sell days:
 - **Time Complexity:** O(n) - We iterate through the array once
 - **Space Complexity:** O(1) - We only use two variables regardless of input size
 
-The key insight is that we always want to buy at the lowest price before selling, so tracking the minimum price as we go allows us to calculate the best possible profit at each step without needing nested loops.
+The key insight is that we always want to buy at the lowest price before selling so tracking the minimum price as we go allows us to calculate the best possible profit at each step without needing nested loops.
 
 ---
