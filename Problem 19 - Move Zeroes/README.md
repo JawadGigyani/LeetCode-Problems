@@ -33,14 +33,14 @@ Output: [0]
 
 ## Constraints
 
-- `1 <= nums.length <= 10^4`  
-- `-2^31 <= nums[i] <= 2^31 - 1`
+- `1 <= nums.length <= 10⁴`  
+- `-2³¹ <= nums[i] <= 2³¹ - 1`
 
 ---
 
-## Solution Strategy
+## Solution Strategy (Delete-and-Append)
 
-To solve this problem, I used a **two-pointer with delete-and-append** approach:
+To solve this problem, I first used a **two-pointer with delete-and-append** approach:
 
 1. **Initialize two pointers**: `l = 0` (left) and `r = len(nums) - 1` (right boundary)
 2. **Loop while `l < r`**:
@@ -55,9 +55,30 @@ To solve this problem, I used a **two-pointer with delete-and-append** approach:
 ### Why This Approach?
 
 This approach directly moves zeroes to the end while preserving order:
-- **Time Complexity:** O(n²) - Each `del` operation shifts elements, repeated for each zero
-- **Space Complexity:** O(1) - We modify the array in-place without extra space
+- **Time Complexity:** O(n²) — Each `del` operation shifts elements, repeated for each zero
+- **Space Complexity:** O(1) — We modify the array in-place without extra space
 
 The right pointer `r` acts as a boundary to prevent re-processing the zeroes we've already moved to the end, ensuring the loop terminates correctly.
+
+---
+
+## Improved Solution (Swap-Based Two Pointer)
+
+I later revisited this problem with a cleaner **swap-based** approach:
+
+1. **Initialize** a write pointer `pos = 0` (tracks where the next non-zero element should go)
+2. **Iterate** through the array with index `i`:
+   - If `nums[i] != 0`:
+     - **Swap** `nums[i]` with `nums[pos]`
+     - Increment `pos` by 1
+3. The array is modified **in-place** — all non-zero elements are packed to the front, and zeroes naturally end up at the back.
+
+### Why This Improvement?
+
+The original solution's `del` and `append` operations each cost O(n) due to element shifting, making it O(n²) overall. The swap-based approach avoids any shifting entirely:
+- **Time Complexity:** O(n) — Single pass through the array, each swap is O(1)
+- **Space Complexity:** O(1) — In-place with only one extra variable
+
+The `pos` pointer always stays at or behind `i`, so every swap either places a non-zero element into its correct position or swaps an element with itself (a no-op). This guarantees that relative order is preserved without any unnecessary data movement.
 
 ---
