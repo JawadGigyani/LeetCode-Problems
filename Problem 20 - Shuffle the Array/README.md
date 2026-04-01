@@ -47,9 +47,9 @@ Output: [1,2,1,2]
 
 ---
 
-## Solution Strategy
+## Solution Strategy (In-Place Insert-and-Delete)
 
-To solve this problem, I used an **in-place insert-and-delete** approach:
+To solve this problem, I first used an **in-place insert-and-delete** approach:
 
 1. **Initialize pointer** `l = 1` (the position where the first y-element should go)
 2. **Loop while `l < len(nums)`**:
@@ -62,9 +62,31 @@ To solve this problem, I used an **in-place insert-and-delete** approach:
 ### Why This Approach?
 
 This approach interleaves the two halves by moving elements from the second half into their correct positions:
-- **Time Complexity:** O(n²) - Each insert/delete operation shifts elements
-- **Space Complexity:** O(1) - We modify the array in-place
+- **Time Complexity:** O(n²) — Each insert/delete operation shifts elements
+- **Space Complexity:** O(1) — We modify the array in-place
 
 The pointer `l` jumps by 2 each iteration because after placing a y-element, the next y-element goes two positions ahead (after the next x-element).
+
+---
+
+## Improved Solution (List Comprehension)
+
+I later revisited this problem with a cleaner **list comprehension** approach:
+
+1. **Iterate** `i` from `0` to `n - 1`
+2. For each `i`, **yield** the pair `(nums[i], nums[i + n])` — pairing up the corresponding x and y elements
+3. The nested comprehension **flattens** these pairs into a single list.
+
+```python
+return [num for i in range(n) for num in (nums[i], nums[i+n])]
+```
+
+### Why This Improvement?
+
+The original solution works, but the repeated `insert` and `del` operations each cost O(n) due to element shifting, making it O(n²) overall. The list comprehension approach directly builds the result by pairing `nums[i]` with `nums[i + n]`:
+- **Time Complexity:** O(n) — Single pass through the first half, each pair lookup is O(1)
+- **Space Complexity:** O(n) — A new list is constructed for the result
+
+It trades the in-place advantage for a much cleaner and faster solution. Given that we need to return a list anyway, the O(n) space is perfectly acceptable and the readability gain is significant.
 
 ---
