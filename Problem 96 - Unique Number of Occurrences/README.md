@@ -61,4 +61,3 @@ This strategy provides an optimal and direct way to verify the uniqueness of ele
 - **Time Complexity:** $O(N)$ — Where $N$ is the length of `arr`. Counting frequencies takes $O(N)$ time. Iterating through the unique keys and checking/adding to the set takes average $O(1)$ time per unique element, bounding the second loop to $O(N)$ overall.
 - **Space Complexity:** $O(N)$ — In the worst-case scenario (all uniquely occurring elements), the `Counter` hash map and the `checked` set both store information proportional to the length of the array, taking $O(N)$ extra space.
 
-*(Note: The request to add a gif in the example was omitted as there is no visual gif asset inherently tied to this specific problem's LeetCode description like there was in previous problems.)*
